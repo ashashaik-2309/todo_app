@@ -3,9 +3,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todo_app/features/categories/domain/category_model.dart';
-import 'package:todo_app/features/categories/presentation/cubit/category_cubit.dart';
-import 'package:todo_app/features/categories/presentation/widgets/add_edit_category_dialog.dart';
-import 'package:todo_app/shared/widgets/confirm_delete_dialog.dart';
+import 'package:todo_app/features/categories/cubit/category_cubit.dart';
+import 'package:todo_app/features/categories/widget/add_edit_category_dialog.dart';
+import 'package:todo_app/common/widgets/confirm_delete_dialog.dart';
 
 class CategoryListTile extends StatelessWidget {
   final Category category;

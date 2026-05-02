@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/core/constants/app_strings.dart';
-import 'package:todo_app/features/categories/presentation/cubit/category_cubit.dart';
-import 'package:todo_app/features/categories/presentation/widgets/add_edit_category_dialog.dart';
-import 'package:todo_app/features/categories/presentation/widgets/category_list_tile.dart';
-import 'package:todo_app/features/todos/presentation/widgets/todo_empty_state.dart';
-import 'package:todo_app/shared/widgets/animated_fab.dart';
+import 'package:todo_app/features/categories/cubit/category_cubit.dart';
+import 'package:todo_app/features/categories/widget/add_edit_category_dialog.dart';
+import 'package:todo_app/features/categories/widget/category_list_tile.dart';
+import 'package:todo_app/features/todos/widget/todo_empty_state.dart';
+import 'package:todo_app/common/widgets/animated_fab.dart';
 
-class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key});
+class CategoriesView extends StatelessWidget {
+  const CategoriesView({super.key});
 
   @override
   Widget build(BuildContext context) {

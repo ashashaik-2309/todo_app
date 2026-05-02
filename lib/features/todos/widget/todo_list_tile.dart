@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/features/todos/domain/todo_model.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_bloc.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_event.dart';
-import 'package:todo_app/features/todos/presentation/widgets/due_date_badge.dart';
-import 'package:todo_app/features/todos/presentation/widgets/priority_chip.dart';
-import 'package:todo_app/shared/widgets/confirm_delete_dialog.dart';
+import 'package:todo_app/features/todos/bloc/todo_bloc.dart';
+import 'package:todo_app/features/todos/bloc/todo_event.dart';
+import 'package:todo_app/features/todos/widget/due_date_badge.dart';
+import 'package:todo_app/features/todos/widget/priority_chip.dart';
+import 'package:todo_app/common/widgets/confirm_delete_dialog.dart';
 
 class TodoListTile extends StatelessWidget {
   final Todo todo;

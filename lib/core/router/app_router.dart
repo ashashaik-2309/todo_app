@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:todo_app/features/categories/presentation/screens/categories_screen.dart';
+import 'package:todo_app/features/categories/view/categories_view.dart';
 import 'package:todo_app/features/todos/domain/todo_model.dart';
-import 'package:todo_app/features/todos/presentation/screens/add_edit_todo_screen.dart';
-import 'package:todo_app/features/todos/presentation/screens/home_screen.dart';
-import 'package:todo_app/features/todos/presentation/screens/todo_detail_screen.dart';
-import 'package:todo_app/shared/widgets/app_scaffold.dart';
+import 'package:todo_app/features/todos/view/add_edit_todo_view.dart';
+import 'package:todo_app/features/todos/view/home_view.dart';
+import 'package:todo_app/features/todos/view/todo_detail_view.dart';
+import 'package:todo_app/common/widgets/app_scaffold.dart';
 
 final _rootKey = GlobalKey<NavigatorState>();
 final _shellKey = GlobalKey<NavigatorState>();
@@ -20,15 +20,15 @@ final appRouter = GoRouter(
       routes: [
         GoRoute(
           path: '/todos',
-          pageBuilder: (context, state) => _fadePage(const HomeScreen(tab: 0)),
+          pageBuilder: (context, state) => _fadePage(const HomeView(tab: 0)),
         ),
         GoRoute(
           path: '/completed',
-          pageBuilder: (context, state) => _fadePage(const HomeScreen(tab: 1)),
+          pageBuilder: (context, state) => _fadePage(const HomeView(tab: 1)),
         ),
         GoRoute(
           path: '/categories',
-          pageBuilder: (context, state) => _fadePage(const CategoriesScreen()),
+          pageBuilder: (context, state) => _fadePage(const CategoriesView()),
         ),
       ],
     ),
@@ -36,7 +36,7 @@ final appRouter = GoRouter(
       path: '/todo/add',
       parentNavigatorKey: _rootKey,
       pageBuilder: (context, state) {
-        return _slidePage(const AddEditTodoScreen());
+        return _slidePage(const AddEditTodoView());
       },
     ),
     GoRoute(
@@ -44,7 +44,7 @@ final appRouter = GoRouter(
       parentNavigatorKey: _rootKey,
       pageBuilder: (context, state) {
         final todo = state.extra as Todo;
-        return _slidePage(AddEditTodoScreen(todo: todo));
+        return _slidePage(AddEditTodoView(todo: todo));
       },
     ),
     GoRoute(
@@ -52,7 +52,7 @@ final appRouter = GoRouter(
       parentNavigatorKey: _rootKey,
       pageBuilder: (context, state) {
         final id = int.parse(state.pathParameters['id']!);
-        return _slidePage(TodoDetailScreen(todoId: id));
+        return _slidePage(TodoDetailView(todoId: id));
       },
     ),
   ],

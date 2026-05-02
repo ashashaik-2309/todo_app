@@ -4,10 +4,10 @@ import 'package:todo_app/core/router/app_router.dart';
 import 'package:todo_app/core/theme/app_theme.dart';
 import 'package:todo_app/core/theme/theme_cubit.dart';
 import 'package:todo_app/features/categories/data/category_repository.dart';
-import 'package:todo_app/features/categories/presentation/cubit/category_cubit.dart';
+import 'package:todo_app/features/categories/cubit/category_cubit.dart';
 import 'package:todo_app/features/todos/data/todo_repository.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_bloc.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_event.dart';
+import 'package:todo_app/features/todos/bloc/todo_bloc.dart';
+import 'package:todo_app/features/todos/bloc/todo_event.dart';
 
 class TodoApp extends StatelessWidget {
   const TodoApp({super.key});

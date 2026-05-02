@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/core/constants/app_colors.dart';
 import 'package:todo_app/core/constants/app_strings.dart';
 import 'package:todo_app/features/categories/domain/category_model.dart';
-import 'package:todo_app/features/categories/presentation/cubit/category_cubit.dart';
+import 'package:todo_app/features/categories/cubit/category_cubit.dart';
 
 class AddEditCategoryDialog extends StatefulWidget {
   final Category? category;

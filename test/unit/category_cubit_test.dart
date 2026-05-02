@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:todo_app/features/categories/data/category_repository.dart';
 import 'package:todo_app/features/categories/domain/category_model.dart';
-import 'package:todo_app/features/categories/presentation/cubit/category_cubit.dart';
+import 'package:todo_app/features/categories/cubit/category_cubit.dart';
 
 class MockCategoryRepository extends Mock implements CategoryRepository {}
 

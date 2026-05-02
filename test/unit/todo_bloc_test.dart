@@ -4,9 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:todo_app/features/todos/data/todo_repository.dart';
 import 'package:todo_app/features/todos/domain/todo_model.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_bloc.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_event.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_state.dart';
+import 'package:todo_app/features/todos/bloc/todo_bloc.dart';
+import 'package:todo_app/features/todos/bloc/todo_event.dart';
+import 'package:todo_app/features/todos/bloc/todo_state.dart';
 
 class MockTodoRepository extends Mock implements TodoRepository {}
 

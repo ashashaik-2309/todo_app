@@ -4,9 +4,9 @@ import 'package:todo_app/core/constants/app_strings.dart';
 import 'package:todo_app/core/utils/priority_utils.dart';
 import 'package:todo_app/features/categories/domain/category_model.dart';
 import 'package:todo_app/features/todos/domain/todo_model.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_bloc.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_event.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_state.dart';
+import 'package:todo_app/features/todos/bloc/todo_bloc.dart';
+import 'package:todo_app/features/todos/bloc/todo_event.dart';
+import 'package:todo_app/features/todos/bloc/todo_state.dart';
 
 class FilterBar extends StatelessWidget {
   final List<Category> categories;

@@ -3,18 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/constants/app_strings.dart';
 import 'package:todo_app/core/utils/date_formatter.dart';
-import 'package:todo_app/features/categories/presentation/cubit/category_cubit.dart';
+import 'package:todo_app/features/categories/cubit/category_cubit.dart';
 import 'package:todo_app/features/todos/domain/todo_model.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_bloc.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_event.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_state.dart';
-import 'package:todo_app/features/todos/presentation/widgets/due_date_badge.dart';
-import 'package:todo_app/features/todos/presentation/widgets/priority_chip.dart';
-import 'package:todo_app/shared/widgets/confirm_delete_dialog.dart';
+import 'package:todo_app/features/todos/bloc/todo_bloc.dart';
+import 'package:todo_app/features/todos/bloc/todo_event.dart';
+import 'package:todo_app/features/todos/bloc/todo_state.dart';
+import 'package:todo_app/features/todos/widget/due_date_badge.dart';
+import 'package:todo_app/features/todos/widget/priority_chip.dart';
+import 'package:todo_app/common/widgets/confirm_delete_dialog.dart';
 
-class TodoDetailScreen extends StatelessWidget {
+class TodoDetailView extends StatelessWidget {
   final int todoId;
-  const TodoDetailScreen({super.key, required this.todoId});
+  const TodoDetailView({super.key, required this.todoId});
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +32,15 @@ class TodoDetailScreen extends StatelessWidget {
           );
         }
 
-        return _TodoDetailView(todo: todo);
+        return _TodoDetailContent(todo: todo);
       },
     );
   }
 }
 
-class _TodoDetailView extends StatelessWidget {
+class _TodoDetailContent extends StatelessWidget {
   final Todo todo;
-  const _TodoDetailView({required this.todo});
+  const _TodoDetailContent({required this.todo});
 
   @override
   Widget build(BuildContext context) {

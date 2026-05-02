@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/features/todos/data/todo_repository.dart';
 import 'package:todo_app/features/todos/domain/todo_model.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_event.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_state.dart';
+import 'package:todo_app/features/todos/bloc/todo_event.dart';
+import 'package:todo_app/features/todos/bloc/todo_state.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final TodoRepository _repository;

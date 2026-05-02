@@ -4,19 +4,19 @@ import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/constants/app_strings.dart';
 import 'package:todo_app/features/categories/domain/category_model.dart';
 import 'package:todo_app/core/theme/theme_cubit.dart';
-import 'package:todo_app/features/categories/presentation/cubit/category_cubit.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_bloc.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_event.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_state.dart';
-import 'package:todo_app/features/todos/presentation/widgets/filter_bar.dart';
-import 'package:todo_app/features/todos/presentation/widgets/search_bar_widget.dart';
-import 'package:todo_app/features/todos/presentation/widgets/todo_empty_state.dart';
-import 'package:todo_app/features/todos/presentation/widgets/todo_list_tile.dart';
-import 'package:todo_app/shared/widgets/animated_fab.dart';
+import 'package:todo_app/features/categories/cubit/category_cubit.dart';
+import 'package:todo_app/features/todos/bloc/todo_bloc.dart';
+import 'package:todo_app/features/todos/bloc/todo_event.dart';
+import 'package:todo_app/features/todos/bloc/todo_state.dart';
+import 'package:todo_app/features/todos/widget/filter_bar.dart';
+import 'package:todo_app/features/todos/widget/search_bar_widget.dart';
+import 'package:todo_app/features/todos/widget/todo_empty_state.dart';
+import 'package:todo_app/features/todos/widget/todo_list_tile.dart';
+import 'package:todo_app/common/widgets/animated_fab.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeView extends StatelessWidget {
   final int tab;
-  const HomeScreen({super.key, required this.tab});
+  const HomeView({super.key, required this.tab});
 
   bool get _isActive => tab == 0;
 

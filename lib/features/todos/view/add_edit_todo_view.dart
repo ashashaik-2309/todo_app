@@ -4,20 +4,20 @@ import 'package:todo_app/core/constants/app_strings.dart';
 import 'package:todo_app/core/utils/date_formatter.dart';
 import 'package:todo_app/core/utils/priority_utils.dart';
 import 'package:todo_app/features/categories/domain/category_model.dart';
-import 'package:todo_app/features/categories/presentation/cubit/category_cubit.dart';
+import 'package:todo_app/features/categories/cubit/category_cubit.dart';
 import 'package:todo_app/features/todos/domain/todo_model.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_bloc.dart';
-import 'package:todo_app/features/todos/presentation/bloc/todo_event.dart';
+import 'package:todo_app/features/todos/bloc/todo_bloc.dart';
+import 'package:todo_app/features/todos/bloc/todo_event.dart';
 
-class AddEditTodoScreen extends StatefulWidget {
+class AddEditTodoView extends StatefulWidget {
   final Todo? todo;
-  const AddEditTodoScreen({super.key, this.todo});
+  const AddEditTodoView({super.key, this.todo});
 
   @override
-  State<AddEditTodoScreen> createState() => _AddEditTodoScreenState();
+  State<AddEditTodoView> createState() => _AddEditTodoViewState();
 }
 
-class _AddEditTodoScreenState extends State<AddEditTodoScreen> {
+class _AddEditTodoViewState extends State<AddEditTodoView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _titleController;
   late final TextEditingController _descController;
