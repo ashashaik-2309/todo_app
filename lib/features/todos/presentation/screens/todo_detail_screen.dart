@@ -208,7 +208,7 @@ class _CategoryDetailRow extends StatelessWidget {
         String name = AppStrings.uncategorized;
         Color? color;
 
-        if (state is CategoryLoaded && categoryId != 0) {
+        if (state is CategoryLoaded && categoryId != -1) {
           final cat =
               state.categories.where((c) => c.id == categoryId).firstOrNull;
           if (cat != null) {

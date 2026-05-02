@@ -23,7 +23,7 @@ class _AddEditTodoScreenState extends State<AddEditTodoScreen> {
   late final TextEditingController _descController;
   late Priority _priority;
   DateTime? _dueDate;
-  int _categoryId = 0;
+  int _categoryId = -1;
   final List<String> _tags = [];
   final _tagController = TextEditingController();
 
@@ -201,13 +201,17 @@ class _PrioritySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final priorities = Priority.values;
     return Row(
-      children: Priority.values.map((p) {
-        final isSelected = p == selected;
-        final color = PriorityUtils.color(p);
-        return Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(right: 8),
+      children: [
+        for (int i = 0; i < priorities.length; i++)
+          Expanded(
+            child: Builder(builder: (context) {
+              final p = priorities[i];
+              final isSelected = p == selected;
+              final color = PriorityUtils.color(p);
+              return Padding(
+            padding: EdgeInsets.only(right: i < priorities.length - 1 ? 8 : 0),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
@@ -305,7 +309,7 @@ class _CategoryDropdown extends StatelessWidget {
       ),
       items: [
         const DropdownMenuItem(
-          value: 0,
+          value: -1,
           child: Text(AppStrings.uncategorized),
         ),
         ...categories.map(

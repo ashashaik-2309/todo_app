@@ -33,7 +33,7 @@ void main() {
     repo = MockTodoRepository();
     controller = StreamController<List<Todo>>.broadcast();
     when(() => repo.watchAll()).thenAnswer((_) => controller.stream);
-    when(() => repo.create(any())).thenAnswer((_) async => 1);
+    when(() => repo.create(any())).thenAnswer((_) async {});
     when(() => repo.update(any())).thenAnswer((_) async {});
     when(() => repo.delete(any())).thenAnswer((_) async {});
     when(() => repo.toggleComplete(any())).thenAnswer((_) async {});

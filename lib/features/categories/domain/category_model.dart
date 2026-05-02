@@ -1,16 +1,20 @@
-import 'package:isar/isar.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 part 'category_model.g.dart';
 
-@collection
-class Category {
-  Id id = Isar.autoIncrement;
+@HiveType(typeId: 1)
+class Category extends HiveObject {
+  int get id => key as int;
 
-  @Index(type: IndexType.value, unique: true)
+  @HiveField(0)
   late String name;
 
+  @HiveField(1)
   late int colorValue;
+
+  @HiveField(2)
   late int iconCodePoint;
 
+  @HiveField(3)
   DateTime createdAt = DateTime.now();
 }

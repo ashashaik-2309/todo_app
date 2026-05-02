@@ -1,27 +1,29 @@
-import 'package:isar/isar.dart';
-import 'package:todo_app/core/database/isar_service.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo_app/features/categories/domain/category_model.dart';
 
 class CategoryRepository {
-  Isar get _isar => IsarService.instance;
+  Box<Category> get _box => Hive.box<Category>('categories');
 
-  Stream<List<Category>> watchAll() {
-    return _isar.categorys.where().watch(fireImmediately: true);
+  Stream<List<Category>> watchAll() async* {
+    yield _box.values.toList();
+    await for (final _ in _box.watch()) {
+      yield _box.values.toList();
+    }
   }
 
-  Future<List<Category>> getAll() => _isar.categorys.where().findAll();
+  Future<List<Category>> getAll() async => _box.values.toList();
 
-  Future<Category?> getById(int id) => _isar.categorys.get(id);
+  Future<Category?> getById(int id) async => _box.get(id);
 
-  Future<int> create(Category category) async {
-    return _isar.writeTxn(() => _isar.categorys.put(category));
+  Future<void> create(Category category) async {
+    await _box.add(category);
   }
 
   Future<void> update(Category category) async {
-    await _isar.writeTxn(() => _isar.categorys.put(category));
+    await category.save();
   }
 
   Future<void> delete(int id) async {
-    await _isar.writeTxn(() => _isar.categorys.delete(id));
+    await _box.delete(id);
   }
 }

@@ -1,31 +1,40 @@
-import 'package:isar/isar.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 part 'todo_model.g.dart';
 
 enum Priority { low, medium, high }
 
-@collection
-class Todo {
-  Id id = Isar.autoIncrement;
+@HiveType(typeId: 0)
+class Todo extends HiveObject {
+  int get id => key as int;
 
-  @Index(type: IndexType.value)
+  @HiveField(0)
   late String title;
 
+  @HiveField(1)
   String? description;
 
-  @Enumerated(EnumType.name)
-  Priority priority = Priority.medium;
+  @HiveField(2)
+  int priorityIndex = 1; // Priority.medium
 
-  @Index(type: IndexType.value)
+  @HiveField(3)
   bool isCompleted = false;
 
+  @HiveField(4)
   DateTime? dueDate;
 
+  @HiveField(5)
   DateTime createdAt = DateTime.now();
+
+  @HiveField(6)
   DateTime updatedAt = DateTime.now();
 
-  @Index(type: IndexType.value)
-  int categoryId = 0;
+  @HiveField(7)
+  int categoryId = -1; // -1 = uncategorized
 
+  @HiveField(8)
   List<String> tags = [];
+
+  Priority get priority => Priority.values[priorityIndex];
+  set priority(Priority p) => priorityIndex = p.index;
 }
