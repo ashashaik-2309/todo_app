@@ -2,22 +2,20 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:todo_app/features/todos/cubit/todo_cubit.dart';
 import 'package:todo_app/features/todos/data/todo_repository.dart';
 import 'package:todo_app/features/todos/domain/todo_model.dart';
-import 'package:todo_app/features/todos/bloc/todo_bloc.dart';
-import 'package:todo_app/features/todos/bloc/todo_event.dart';
-import 'package:todo_app/features/todos/bloc/todo_state.dart';
 
 class MockTodoRepository extends Mock implements TodoRepository {}
 
 class FakeTodo extends Fake implements Todo {}
 
 Future<void> _pumpLoaded(
-  TodoBloc bloc,
+  TodoCubit cubit,
   StreamController<List<Todo>> controller, {
   List<Todo> todos = const [],
 }) async {
-  bloc.add(const LoadTodos());
+  cubit.load();
   await Future.microtask(() {});
   controller.add(todos);
   await Future.delayed(const Duration(milliseconds: 50));
@@ -37,60 +35,61 @@ void main() {
     when(() => repo.update(any())).thenAnswer((_) async {});
     when(() => repo.delete(any())).thenAnswer((_) async {});
     when(() => repo.toggleComplete(any())).thenAnswer((_) async {});
+    when(() => repo.syncFromApi()).thenAnswer((_) async {});
   });
 
   tearDown(() => controller.close());
 
   test('initial state is TodoInitial', () {
-    final bloc = TodoBloc(repo);
-    expect(bloc.state, isA<TodoInitial>());
-    bloc.close();
+    final cubit = TodoCubit(repo);
+    expect(cubit.state, isA<TodoInitial>());
+    cubit.close();
   });
 
-  test('emits Loading then Loaded when LoadTodos dispatched', () async {
-    final bloc = TodoBloc(repo);
+  test('emits Loading then Loaded when load() called', () async {
+    final cubit = TodoCubit(repo);
     final states = <TodoState>[];
-    final sub = bloc.stream.listen(states.add);
+    final sub = cubit.stream.listen(states.add);
 
-    await _pumpLoaded(bloc, controller);
+    await _pumpLoaded(cubit, controller);
 
     expect(states.first, isA<TodoLoading>());
     expect(states.last, isA<TodoLoaded>());
     await sub.cancel();
-    await bloc.close();
+    await cubit.close();
   });
 
-  test('SearchChanged updates filter query', () async {
-    final bloc = TodoBloc(repo);
-    await _pumpLoaded(bloc, controller);
+  test('searchChanged updates filter query', () async {
+    final cubit = TodoCubit(repo);
+    await _pumpLoaded(cubit, controller);
 
-    bloc.add(const SearchChanged('flutter'));
+    cubit.searchChanged('flutter');
     await Future.delayed(const Duration(milliseconds: 50));
 
-    expect((bloc.state as TodoLoaded).filter.searchQuery, 'flutter');
-    await bloc.close();
+    expect((cubit.state as TodoLoaded).filter.searchQuery, 'flutter');
+    await cubit.close();
   });
 
-  test('PriorityFilterChanged sets priority', () async {
-    final bloc = TodoBloc(repo);
-    await _pumpLoaded(bloc, controller);
+  test('priorityFilterChanged sets priority', () async {
+    final cubit = TodoCubit(repo);
+    await _pumpLoaded(cubit, controller);
 
-    bloc.add(const PriorityFilterChanged(Priority.high));
+    cubit.priorityFilterChanged(Priority.high);
     await Future.delayed(const Duration(milliseconds: 50));
 
-    expect((bloc.state as TodoLoaded).filter.priority, Priority.high);
-    await bloc.close();
+    expect((cubit.state as TodoLoaded).filter.priority, Priority.high);
+    await cubit.close();
   });
 
-  test('CategoryFilterChanged sets categoryId', () async {
-    final bloc = TodoBloc(repo);
-    await _pumpLoaded(bloc, controller);
+  test('categoryFilterChanged sets categoryId', () async {
+    final cubit = TodoCubit(repo);
+    await _pumpLoaded(cubit, controller);
 
-    bloc.add(const CategoryFilterChanged(3));
+    cubit.categoryFilterChanged(3);
     await Future.delayed(const Duration(milliseconds: 50));
 
-    expect((bloc.state as TodoLoaded).filter.categoryId, 3);
-    await bloc.close();
+    expect((cubit.state as TodoLoaded).filter.categoryId, 3);
+    await cubit.close();
   });
 
   test('activeTodos and completedTodos partition correctly', () {

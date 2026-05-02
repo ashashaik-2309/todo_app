@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:todo_app/features/todos/domain/todo_model.dart';
-import 'package:todo_app/features/todos/bloc/todo_state.dart';
+import 'package:todo_app/features/todos/cubit/todo_cubit.dart';
 
 void main() {
   group('FilterState.copyWith', () {

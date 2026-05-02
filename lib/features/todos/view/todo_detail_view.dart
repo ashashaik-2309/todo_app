@@ -5,9 +5,7 @@ import 'package:todo_app/core/constants/app_strings.dart';
 import 'package:todo_app/core/utils/date_formatter.dart';
 import 'package:todo_app/features/categories/cubit/category_cubit.dart';
 import 'package:todo_app/features/todos/domain/todo_model.dart';
-import 'package:todo_app/features/todos/bloc/todo_bloc.dart';
-import 'package:todo_app/features/todos/bloc/todo_event.dart';
-import 'package:todo_app/features/todos/bloc/todo_state.dart';
+import 'package:todo_app/features/todos/cubit/todo_cubit.dart';
 import 'package:todo_app/features/todos/widget/due_date_badge.dart';
 import 'package:todo_app/features/todos/widget/priority_chip.dart';
 import 'package:todo_app/common/widgets/confirm_delete_dialog.dart';
@@ -18,7 +16,7 @@ class TodoDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TodoBloc, TodoState>(
+    return BlocBuilder<TodoCubit, TodoState>(
       builder: (context, state) {
         if (state is! TodoLoaded) {
           return const Scaffold(body: Center(child: CircularProgressIndicator()));
@@ -63,7 +61,7 @@ class _TodoDetailContent extends StatelessWidget {
             onPressed: () async {
               final confirm = await ConfirmDeleteDialog.show(context);
               if (confirm && context.mounted) {
-                context.read<TodoBloc>().add(DeleteTodo(todo.id));
+                context.read<TodoCubit>().deleteTodo(todo.id);
                 context.pop();
               }
             },
@@ -81,7 +79,7 @@ class _TodoDetailContent extends StatelessWidget {
                 Checkbox(
                   value: todo.isCompleted,
                   onChanged: (_) =>
-                      context.read<TodoBloc>().add(ToggleComplete(todo.id)),
+                      context.read<TodoCubit>().toggleComplete(todo.id),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4)),
                 ),

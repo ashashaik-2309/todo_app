@@ -4,9 +4,7 @@ import 'package:todo_app/core/constants/app_strings.dart';
 import 'package:todo_app/core/utils/priority_utils.dart';
 import 'package:todo_app/features/categories/domain/category_model.dart';
 import 'package:todo_app/features/todos/domain/todo_model.dart';
-import 'package:todo_app/features/todos/bloc/todo_bloc.dart';
-import 'package:todo_app/features/todos/bloc/todo_event.dart';
-import 'package:todo_app/features/todos/bloc/todo_state.dart';
+import 'package:todo_app/features/todos/cubit/todo_cubit.dart';
 
 class FilterBar extends StatelessWidget {
   final List<Category> categories;
@@ -15,7 +13,7 @@ class FilterBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TodoBloc, TodoState>(
+    return BlocBuilder<TodoCubit, TodoState>(
       buildWhen: (prev, curr) => curr is TodoLoaded,
       builder: (context, state) {
         final filter = state is TodoLoaded ? state.filter : const FilterState();
@@ -30,9 +28,9 @@ class FilterBar extends StatelessWidget {
                 label: AppStrings.all,
                 selected: filter.priority == null && filter.categoryId == null,
                 onTap: () {
-                  context.read<TodoBloc>()
-                    ..add(const PriorityFilterChanged(null))
-                    ..add(const CategoryFilterChanged(null));
+                  context.read<TodoCubit>()
+                    ..priorityFilterChanged(null)
+                    ..categoryFilterChanged(null);
                 },
               ),
               const SizedBox(width: 8),
@@ -44,8 +42,8 @@ class FilterBar extends StatelessWidget {
                       selected: filter.priority == p,
                       color: PriorityUtils.color(p),
                       icon: PriorityUtils.icon(p),
-                      onTap: () => context.read<TodoBloc>().add(
-                            PriorityFilterChanged(filter.priority == p ? null : p),
+                      onTap: () => context.read<TodoCubit>().priorityFilterChanged(
+                            filter.priority == p ? null : p,
                           ),
                     ),
                   )),
@@ -56,9 +54,8 @@ class FilterBar extends StatelessWidget {
                       label: cat.name,
                       selected: filter.categoryId == cat.id,
                       color: Color(cat.colorValue),
-                      onTap: () => context.read<TodoBloc>().add(
-                            CategoryFilterChanged(
-                                filter.categoryId == cat.id ? null : cat.id),
+                      onTap: () => context.read<TodoCubit>().categoryFilterChanged(
+                            filter.categoryId == cat.id ? null : cat.id,
                           ),
                     ),
                   )),

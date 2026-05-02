@@ -47,8 +47,13 @@ final class TodoLoading extends TodoState {
 final class TodoLoaded extends TodoState {
   final List<Todo> allTodos;
   final FilterState filter;
+  final bool isSyncing;
 
-  const TodoLoaded({required this.allTodos, this.filter = const FilterState()});
+  const TodoLoaded({
+    required this.allTodos,
+    this.filter = const FilterState(),
+    this.isSyncing = false,
+  });
 
   List<Todo> get activeTodos => _applyFilter(false);
   List<Todo> get completedTodos => _applyFilter(true);
@@ -77,15 +82,16 @@ final class TodoLoaded extends TodoState {
       });
   }
 
-  TodoLoaded copyWith({List<Todo>? allTodos, FilterState? filter}) {
+  TodoLoaded copyWith({List<Todo>? allTodos, FilterState? filter, bool? isSyncing}) {
     return TodoLoaded(
       allTodos: allTodos ?? this.allTodos,
       filter: filter ?? this.filter,
+      isSyncing: isSyncing ?? this.isSyncing,
     );
   }
 
   @override
-  List<Object?> get props => [allTodos, filter];
+  List<Object?> get props => [allTodos, filter, isSyncing];
 }
 
 final class TodoError extends TodoState {

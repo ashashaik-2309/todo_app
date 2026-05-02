@@ -6,8 +6,7 @@ import 'package:todo_app/core/utils/priority_utils.dart';
 import 'package:todo_app/features/categories/domain/category_model.dart';
 import 'package:todo_app/features/categories/cubit/category_cubit.dart';
 import 'package:todo_app/features/todos/domain/todo_model.dart';
-import 'package:todo_app/features/todos/bloc/todo_bloc.dart';
-import 'package:todo_app/features/todos/bloc/todo_event.dart';
+import 'package:todo_app/features/todos/cubit/todo_cubit.dart';
 
 class AddEditTodoView extends StatefulWidget {
   final Todo? todo;
@@ -62,9 +61,9 @@ class _AddEditTodoViewState extends State<AddEditTodoView> {
       ..tags = List.from(_tags);
 
     if (_isEditing) {
-      context.read<TodoBloc>().add(UpdateTodo(todo));
+      context.read<TodoCubit>().updateTodo(todo);
     } else {
-      context.read<TodoBloc>().add(AddTodo(todo));
+      context.read<TodoCubit>().addTodo(todo);
     }
     Navigator.of(context).pop();
   }

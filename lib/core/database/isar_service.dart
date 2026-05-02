@@ -12,6 +12,7 @@ class IsarService {
     Hive.registerAdapter(CategoryAdapter());
     await Hive.openBox<Todo>('todos');
     await Hive.openBox<Category>('categories');
+    await Hive.openBox<int>('todo_api_ids');
     await _seedCategories();
   }
 
