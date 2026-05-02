@@ -120,10 +120,11 @@ class TodoListTile extends StatelessWidget {
                         ),
                       ],
                       const SizedBox(height: 6),
-                      Row(
+                      Wrap(
+                        spacing: 6,
+                        runSpacing: 4,
                         children: [
                           PriorityChip(priority: todo.priority, compact: true),
-                          const SizedBox(width: 8),
                           DueDateBadge(
                               dueDate: todo.dueDate,
                               isCompleted: todo.isCompleted),

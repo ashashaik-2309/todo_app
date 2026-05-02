@@ -202,51 +202,49 @@ class _PrioritySelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final priorities = Priority.values;
-    return Row(
-      children: [
-        for (int i = 0; i < priorities.length; i++)
-          Expanded(
-            child: Builder(builder: (context) {
-              final p = priorities[i];
-              final isSelected = p == selected;
-              final color = PriorityUtils.color(p);
-              return Padding(
-            padding: EdgeInsets.only(right: i < priorities.length - 1 ? 8 : 0),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              decoration: BoxDecoration(
-                color: isSelected ? color : color.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(10),
-                border: isSelected ? null : Border.all(color: color.withValues(alpha: 0.3)),
-              ),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(10),
-                onTap: () => onChanged(p),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
-                    children: [
-                      Icon(PriorityUtils.icon(p),
-                          size: 18,
-                          color: isSelected ? Colors.white : color),
-                      const SizedBox(height: 4),
-                      Text(
-                        PriorityUtils.label(p),
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: isSelected ? Colors.white : color,
-                        ),
+    final items = <Widget>[];
+    for (int i = 0; i < priorities.length; i++) {
+      final p = priorities[i];
+      final isSelected = p == selected;
+      final color = PriorityUtils.color(p);
+      items.add(Expanded(
+        child: Padding(
+          padding: EdgeInsets.only(right: i < priorities.length - 1 ? 8 : 0),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            decoration: BoxDecoration(
+              color: isSelected ? color : color.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(10),
+              border: isSelected ? null : Border.all(color: color.withValues(alpha: 0.3)),
+            ),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(10),
+              onTap: () => onChanged(p),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Column(
+                  children: [
+                    Icon(PriorityUtils.icon(p),
+                        size: 18,
+                        color: isSelected ? Colors.white : color),
+                    const SizedBox(height: 4),
+                    Text(
+                      PriorityUtils.label(p),
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: isSelected ? Colors.white : color,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-        );
-      }).toList(),
-    );
+        ),
+      ));
+    }
+    return Row(children: items);
   }
 }
 
